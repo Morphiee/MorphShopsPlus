@@ -1,0 +1,10 @@
+name: MorphShopsPlus
+version: 1.0.0
+main: gg.morphie.morphshopsplus.MorphShopsPlus
+author: Morphie
+api-version: 1.19
+commands:
+  mshops:
+    description: Main command for the ShopHistory plugin!
+    usage: /<command>
+    aliases: [ps, morphshops, pshops]
