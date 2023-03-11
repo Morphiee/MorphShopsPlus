@@ -3,6 +3,7 @@ package gg.morphie.morphshopsplus.util.files;
 import gg.morphie.morphshopsplus.MorphShopsPlus;
 import gg.morphie.morphshopsplus.util.Color;
 import gg.morphie.morphshopsplus.util.files.messages.BuildManager;
+import gg.morphie.morphshopsplus.util.files.messages.GetMessages;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -76,9 +77,9 @@ public class PlayerDataManager {
                     }
                 }
                 if (filesDeleted != 0) {
-                    plugin.getServer().getConsoleSender().sendMessage(Color.addColor(new BuildManager(plugin).messagesCFG.getString("ServerStart.CleanerCleared").replace("%FILES_DELETED%", String.valueOf(filesDeleted))));
+                    plugin.getServer().getConsoleSender().sendMessage(Color.addColor(new GetMessages(plugin).getMessage("ServerStart.CleanerCleared").replace("%FILES_DELETED%", String.valueOf(filesDeleted))));
                 } else {
-                    plugin.getServer().getConsoleSender().sendMessage(Color.addColor(new BuildManager(plugin).messagesCFG.getString("ServerStart.CleanerNoneCleared")));
+                    plugin.getServer().getConsoleSender().sendMessage(Color.addColor(new GetMessages(plugin).getMessage("ServerStart.CleanerNoneCleared")));
                 }
             }
         }

@@ -1,19 +1,27 @@
 package gg.morphie.morphshopsplus;
 
+import gg.morphie.morphshopsplus.commands.CommandsManager;
+import gg.morphie.morphshopsplus.events.PlayerDataEvents;
 import gg.morphie.morphshopsplus.util.Color;
 import gg.morphie.morphshopsplus.util.files.PlayerDataManager;
 import gg.morphie.morphshopsplus.util.files.messages.BuildManager;
 import gg.morphie.morphshopsplus.util.files.messages.GetMessages;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Objects;
 
 public class MorphShopsPlus extends JavaPlugin {
 
     public String Version;
 
+    PluginManager pm = Bukkit.getServer().getPluginManager();
+
     public void onEnable() {
+        Objects.requireNonNull(getCommand("ms")).setExecutor(new CommandsManager(this));
+        pm.registerEvents(new PlayerDataEvents(this), this);
         new BuildManager(this).setup();
         Version = this.getDescription().getVersion();
         Bukkit.getConsoleSender().sendMessage(Color.addColor(new GetMessages(this).getMessage("ServerStart.Header")));
@@ -49,5 +57,9 @@ public class MorphShopsPlus extends JavaPlugin {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String getVersion() {
+        return this.Version;
     }
 }
