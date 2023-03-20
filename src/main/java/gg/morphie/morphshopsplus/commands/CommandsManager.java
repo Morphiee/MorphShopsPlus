@@ -3,7 +3,6 @@ package gg.morphie.morphshopsplus.commands;
 import gg.morphie.morphshopsplus.MorphShopsPlus;
 import gg.morphie.morphshopsplus.commands.playercommands.HelpCommand;
 import gg.morphie.morphshopsplus.util.Color;
-import gg.morphie.morphshopsplus.util.files.messages.GetMessages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,7 +24,7 @@ public class CommandsManager implements CommandExecutor {
                     Player player = (Player) sender;
                     new HelpCommand(plugin).runHelp(player);
                 } else {
-                    sender.sendMessage(Color.addColor(new GetMessages(plugin).getMessage("ErrorPrefix") + " &cThis command can only be run by a player!"));
+                    sender.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + " &cThis command can only be run by a player!"));
                 }
                 return true;
             } else if (args[0].equalsIgnoreCase("set")) {
@@ -34,11 +33,11 @@ public class CommandsManager implements CommandExecutor {
                     Player player = (Player) sender;
                     new HelpCommand(plugin).runHelp(player);
                 } else {
-                    sender.sendMessage(Color.addColor(new GetMessages(plugin).getMessage("ErrorPrefix") + " &cThis command can only be run by a player!"));
+                    sender.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + " &cThis command can only be run by a player!"));
                 }
                 return true;
             } else {
-                sender.sendMessage(Color.addColor(new GetMessages(plugin).getMessage("ErrorPrefix") + new GetMessages(plugin).getMessage("InvalidArgsMessage")));
+                sender.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + plugin.getMessage("InvalidArgsMessage")));
                 return true;
             }
         }

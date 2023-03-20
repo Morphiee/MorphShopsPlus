@@ -4,7 +4,7 @@ main: gg.morphie.morphshopsplus.MorphShopsPlus
 author: Morphie
 api-version: 1.19
 commands:
-  mshops:
+  ps:
     description: Main command for the ShopHistory plugin!
     usage: /<command>
-    aliases: [ps, morphshops, pshops]
+    aliases: [pshops, ms, msshops]

@@ -5,35 +5,43 @@ import gg.morphie.morphshopsplus.events.PlayerDataEvents;
 import gg.morphie.morphshopsplus.util.Color;
 import gg.morphie.morphshopsplus.util.files.PlayerDataManager;
 import gg.morphie.morphshopsplus.util.files.messages.BuildManager;
-import gg.morphie.morphshopsplus.util.files.messages.GetMessages;
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
 
 public class MorphShopsPlus extends JavaPlugin {
 
     public String Version;
+    public BuildManager messagescfg;
+    private static Economy econ = null;
+    private static Permission perms = null;
+    private static Chat chat = null;
 
     PluginManager pm = Bukkit.getServer().getPluginManager();
 
     public void onEnable() {
-        Objects.requireNonNull(getCommand("ms")).setExecutor(new CommandsManager(this));
+        Objects.requireNonNull(getCommand("ps")).setExecutor(new CommandsManager(this));
         pm.registerEvents(new PlayerDataEvents(this), this);
-        new BuildManager(this).setup();
+        loadConfigManager();
         Version = this.getDescription().getVersion();
-        Bukkit.getConsoleSender().sendMessage(Color.addColor(new GetMessages(this).getMessage("ServerStart.Header")));
-        Bukkit.getConsoleSender().sendMessage(Color.addColor(new GetMessages(this).getMessage("ServerStart.TitleVersion").replace("%VERSION%", this.Version)));
-        Bukkit.getConsoleSender().sendMessage(Color.addColor(new GetMessages(this).getMessage("ServerStart.Author")));
+        Bukkit.getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Header")));
+        Bukkit.getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.TitleVersion").replace("%VERSION%", this.Version)));
+        Bukkit.getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Author")));
         createConfig();
         if (this.getConfig().getBoolean("Settings.AutoDeletePlayerFiles.Enabled")) {
             getServer().getConsoleSender().sendMessage(" ");
-            getServer().getConsoleSender().sendMessage(Color.addColor(new GetMessages(this).getMessage("ServerStart.CleanerCheck")));
+            getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.CleanerCheck")));
             new PlayerDataManager(this).cleanPlayerData();
         }
-        Bukkit.getConsoleSender().sendMessage(Color.addColor(new GetMessages(this).getMessage("ServerStart.Footer")));
+        Bukkit.getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Footer")));
     }
 
     public void onDisable() {
@@ -47,16 +55,61 @@ public class MorphShopsPlus extends JavaPlugin {
             }
             File file = new File(getDataFolder(), "config.yml");
             if (!file.exists()) {
-                getServer().getConsoleSender().sendMessage(Color.addColor(new GetMessages(this).getMessage("ServerStart.GenConfig")));
+                getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.GenConfig")));
                 getConfig().options().copyDefaults(true);
                 saveDefaultConfig();
             } else {
-                getServer().getConsoleSender().sendMessage(Color.addColor(new GetMessages(this).getMessage("ServerStart.Config")));
+                getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Config")));
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return econ != null;
+    }
+
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        perms = rsp.getProvider();
+        return perms != null;
+    }
+
+    public Economy getEconomy() {
+        return econ;
+    }
+
+    public Permission getPermissions() {
+        return perms;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void loadConfigManager() {
+        this.messagescfg = new BuildManager(this);
+        this.messagescfg.setup();
+    }
+
+    public String getMessage(String string) {
+        String gotString = this.messagescfg.messagesCFG.getString(string);
+        if (gotString != null) return gotString;
+        return "Null message";
+    }
+
+    public List<String> getMessageList(String string) {
+        return this.messagescfg.messagesCFG.getStringList(string);
     }
 
     public String getVersion() {

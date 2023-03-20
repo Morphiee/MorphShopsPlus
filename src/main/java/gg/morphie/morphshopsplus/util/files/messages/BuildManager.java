@@ -5,14 +5,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.Listener;
 
 import java.io.File;
 import java.io.IOException;
 
-public class BuildManager {
-
+public class BuildManager implements Listener {
     private MorphShopsPlus plugin;
-    public FileConfiguration cfg;
+    public FileConfiguration messagesCFG;
     public File messagesFile;
 
     public BuildManager(MorphShopsPlus plugin) {
@@ -28,32 +28,32 @@ public class BuildManager {
             try {
                 this.messagesFile.createNewFile();
 
-                cfg = YamlConfiguration.loadConfiguration(this.messagesFile);
+                this.messagesCFG = YamlConfiguration.loadConfiguration(this.messagesFile);
 
-                this.addDefaults(cfg);
+                this.addDefaults(this.messagesCFG);
 
-                cfg.options().copyDefaults(true);
+                this.messagesCFG.options().copyDefaults(true);
                 saveMessages();
             } catch (IOException e) {
                 Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "Could not create the messages.yml file");
             }
         }
-        cfg = YamlConfiguration.loadConfiguration(this.messagesFile);
+        this.messagesCFG = YamlConfiguration.loadConfiguration(this.messagesFile);
 
-        this.addDefaults(cfg);
+        this.addDefaults(this.messagesCFG);
     }
 
     public void saveMessages() {
         try {
-            cfg.save(this.messagesFile);
+            this.messagesCFG.save(this.messagesFile);
         } catch (IOException e) {
             Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "Could not save the messages.yml file");
         }
     }
 
     public void reloadMessages() {
-        cfg = YamlConfiguration.loadConfiguration(this.messagesFile);
-        this.addDefaults(cfg);
+        this.messagesCFG = YamlConfiguration.loadConfiguration(this.messagesFile);
+        this.addDefaults(this.messagesCFG);
     }
 
     private void addDefaults(FileConfiguration cfg) {
