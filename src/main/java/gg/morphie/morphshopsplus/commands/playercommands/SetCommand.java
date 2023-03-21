@@ -28,12 +28,14 @@ public class SetCommand {
                     if (plugin.getConfig().getBoolean("Settings.CommandConfirmation.SetShop")) {
                         if (!(setshop.containsKey(player))) {
                             player.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + plugin.getMessage("SetShop.ConfirmMessage")));
-                            setshop.put(player, true);
+                            this.setshop.put(player, true);
                             BukkitScheduler schedule = Bukkit.getScheduler();
                             schedule.scheduleSyncDelayedTask(plugin, new Runnable() {
                                 public void run() {
-                                    setshop.remove(player);
-                                    player.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + plugin.getMessage("SetShop.ConfirmCanceledMessage")));
+                                    if (setshop.containsKey(player)) {
+                                        setshop.remove(player);
+                                        player.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + plugin.getMessage("SetShop.ConfirmCanceledMessage")));
+                                    }
                                 }
                             }, 1000L);
                         } else {
@@ -41,9 +43,38 @@ public class SetCommand {
                             player.sendMessage(Color.addColor(plugin.getMessage("Prefix") + plugin.getMessage("SetShop.Message")));
                             new LocationUtils(plugin).setPlayerShopLoc(player, loc);
                         }
+                    } else {
+                        player.sendMessage(Color.addColor(plugin.getMessage("Prefix") + plugin.getMessage("SetShop.Message")));
+                        new LocationUtils(plugin).setPlayerShopLoc(player, loc);
+                    }
+                } else {
+                    if (bal >= plugin.getConfig().getDouble("Settings.SetShopPrice.Price")) {
+                        if (!(setshop.containsKey(player))) {
+                            player.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + plugin.getMessage("SetShop.ConfirmPriceMessage").replace("COST", plugin.getConfig().getString("Settings.SetShopPrice.Price"))));
+                            this.setshop.put(player, true);
+                            BukkitScheduler schedule = Bukkit.getScheduler();
+                            schedule.scheduleSyncDelayedTask(plugin, new Runnable() {
+                                public void run() {
+                                    if (setshop.containsKey(player)) {
+                                        setshop.remove(player);
+                                        player.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + plugin.getMessage("SetShop.ConfirmCanceledMessage")));
+                                    }
+                                }
+                            }, 1000L);
+
+                        } else {
+                            plugin.getEconomy().withdrawPlayer(player, plugin.getConfig().getDouble("Settings.SetShopPrice.Price"));
+                            setshop.remove(player);
+                            player.sendMessage(Color.addColor(plugin.getMessage("Prefix") + plugin.getMessage("SetShop.Message")));
+                            new LocationUtils(plugin).setPlayerShopLoc(player, loc);
+                        }
+                    } else {
+                        player.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + plugin.getMessage("NoMoney").replaceAll("COST", plugin.getConfig().getString("Settings.SetShopPrice.Price"))));
                     }
                 }
             }
+        } else {
+            player.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + plugin.getMessage("NoPermission")));
         }
     }
 }

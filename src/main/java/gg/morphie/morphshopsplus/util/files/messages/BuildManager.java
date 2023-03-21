@@ -84,8 +84,13 @@ public class BuildManager implements Listener {
         cfg.addDefault("Commands.PsReload", "&8» &3/ps reload &8- &7Reloads all plugin files!");
         cfg.addDefault("Commands.Footer", "&7‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
 
-        cfg.addDefault("Prefix", "&8[&a&l✔&8] &3&lMorphPShops &8&l➙ ");
-        cfg.addDefault("ErrorPrefix", "&8[&c&l✕&8] &3&lMorphPShops &8&l➙ ");
+        this.messagesCFG.addDefault("SetShop.Message", "&7Your shop has been successfully created!");
+        this.messagesCFG.addDefault("SetShop.ConfirmMessage", "&7Type &a/ps set &7again to confirm!");
+        this.messagesCFG.addDefault("SetShop.ConfirmCanceledMessage", "&7Set shop confirmation timed out! Type &a/ps set &7to set your shop.");
+        this.messagesCFG.addDefault("SetShop.ConfirmPriceMessage", "&7Type &a/ps set &7again to confirm! This will cost&8: &aCOST");
+
+        cfg.addDefault("Prefix", "&8[&a&l✔&8] &3&lMorphShops &8&l➙ ");
+        cfg.addDefault("ErrorPrefix", "&8[&c&l✕&8] &3&lMorphShops &8&l➙ ");
 
         cfg.addDefault("NoPermission", "&7Invalid permissions!");
         cfg.addDefault("NoPlayer", "&7Player does not exist!");

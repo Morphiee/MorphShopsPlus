@@ -3,6 +3,7 @@ version: 1.0.0
 main: gg.morphie.morphshopsplus.MorphShopsPlus
 author: Morphie
 api-version: 1.19
+depend: [Vault]
 commands:
   ps:
     description: Main command for the ShopHistory plugin!

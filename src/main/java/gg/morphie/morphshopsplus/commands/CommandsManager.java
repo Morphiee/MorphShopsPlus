@@ -2,6 +2,7 @@ package gg.morphie.morphshopsplus.commands;
 
 import gg.morphie.morphshopsplus.MorphShopsPlus;
 import gg.morphie.morphshopsplus.commands.playercommands.HelpCommand;
+import gg.morphie.morphshopsplus.commands.playercommands.SetCommand;
 import gg.morphie.morphshopsplus.util.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,7 +32,7 @@ public class CommandsManager implements CommandExecutor {
                 // Player Only
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
-                    new HelpCommand(plugin).runHelp(player);
+                    new SetCommand(plugin).runSetShop(player);
                 } else {
                     sender.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + " &cThis command can only be run by a player!"));
                 }

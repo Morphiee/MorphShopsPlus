@@ -32,19 +32,36 @@ public class MorphShopsPlus extends JavaPlugin {
         pm.registerEvents(new PlayerDataEvents(this), this);
         loadConfigManager();
         Version = this.getDescription().getVersion();
-        Bukkit.getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Header")));
-        Bukkit.getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.TitleVersion").replace("%VERSION%", this.Version)));
-        Bukkit.getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Author")));
+        getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Header")));
+        getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.TitleVersion").replace("%VERSION%", this.Version)));
+        getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Author")));
         createConfig();
-        if (this.getConfig().getBoolean("Settings.AutoDeletePlayerFiles.Enabled")) {
-            getServer().getConsoleSender().sendMessage(" ");
+        if (!setupEconomy()) {
+            getServer().getConsoleSender().sendMessage(Color.addColor("&cPlugin disabled due to no Vault dependency found!"));
+            getServer().getConsoleSender().sendMessage(Color.addColor(" "));
+            getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Footer")));
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        setupPermissions();
+        getServer().getConsoleSender().sendMessage(Color.addColor("&3Plugin Status&8: &aEnabled!"));
+        if (this.getConfig().getBoolean("Settings.AutoDeletePlayerFiles.Enabled") == true) {
+            getServer().getConsoleSender().sendMessage(Color.addColor(" "));
             getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.CleanerCheck")));
             new PlayerDataManager(this).cleanPlayerData();
         }
-        Bukkit.getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Footer")));
+        getServer().getConsoleSender().sendMessage(Color.addColor(" "));
+        getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Footer")));
+
     }
 
     public void onDisable() {
+        getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Header")));
+        getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.TitleVersion").replace("%VERSION%", this.Version)));
+        getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Author")));
+        getServer().getConsoleSender().sendMessage(Color.addColor("&3Plugin Status&8: &cDisabled!"));
+        getServer().getConsoleSender().sendMessage(Color.addColor(" "));
+        getServer().getConsoleSender().sendMessage(Color.addColor(getMessage("ServerStart.Footer")));
 
     }
 
