@@ -92,12 +92,16 @@ public class BuildManager implements Listener {
         cfg.addDefault("Prefix", "&8[&a&l✔&8] &3&lMorphShops &8&l➙ ");
         cfg.addDefault("ErrorPrefix", "&8[&c&l✕&8] &3&lMorphShops &8&l➙ ");
 
+        cfg.addDefault("ToOwnShopMessage", "&7You have been successfully teleported to your shop.");
+
         cfg.addDefault("NoPermission", "&7Invalid permissions!");
         cfg.addDefault("NoPlayer", "&7Player does not exist!");
         cfg.addDefault("NoSetShop", "&7You haven't set a shop yet! &8(&a/ps set&8)");
         cfg.addDefault("NoPlayerSetShop", "&7This player hasn't set a shop yet!");
         cfg.addDefault("NoMoney", "&7Invalid funds! &8(&3Cost&8: &aCOST&8)");
         cfg.addDefault("NoArgs", "&7Invalid args. Use &a/ps &7for commands!");
+        cfg.addDefault("NotAllowedWorld", "&7You cannot set your shop in this world!");
+        cfg.addDefault("InvalidLocation", "&7This location is unsafe! Please make sure the area is safe for teleportation.");
         cfg.addDefault("PlayerNameChange", "&7Player shop cannot be found! Name change?");
     }
 }

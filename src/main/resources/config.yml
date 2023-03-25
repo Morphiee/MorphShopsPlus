@@ -38,7 +38,9 @@ Settings:
   TeleportTimer:
     Enabled: true
     Delay: 3
-
+  AllowedWorlds:
+    - 'world'
+    - 'world_resources'
 
 #============================================================================================================================|
 

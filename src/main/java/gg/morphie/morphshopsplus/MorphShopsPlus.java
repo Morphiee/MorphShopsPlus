@@ -9,21 +9,26 @@ import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class MorphShopsPlus extends JavaPlugin {
+public class MorphShopsPlus extends JavaPlugin implements Listener {
 
     public String Version;
     public BuildManager messagescfg;
     private static Economy econ = null;
     private static Permission perms = null;
     private static Chat chat = null;
+
+    public HashMap<Player, Boolean> setshop = new HashMap<Player, Boolean>();
 
     PluginManager pm = Bukkit.getServer().getPluginManager();
 

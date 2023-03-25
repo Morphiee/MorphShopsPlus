@@ -138,12 +138,10 @@ public class LocationUtils {
                                 || blockBelow.getBlock().getType().equals(Material.CAVE_AIR)
                                 || blockBelow.getBlock().getType().equals(Material.VOID_AIR)) {
                             // do nothing and let the loop run
-                        }
-                        else if(!isBlockDamaging(blockBelow)) {
+                        } else if(!isBlockDamaging(blockBelow)) {
                             safeLocFound = true;
                             break;
-                        }
-                        else {
+                        } else {
                             break;
                         }
                     }
@@ -155,16 +153,12 @@ public class LocationUtils {
                                 blockBelow.getZ()
                         )), roundedShopLoc);
                         return loc_i;
-                    }
-                    else {
+                    } else {
                         return null;
                     }
-                }
-                else {
+                } else {
                     return null;
                 }
-            }
-            else {
             }
         }
         return null;
