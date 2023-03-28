@@ -3,6 +3,7 @@ package gg.morphie.morphshopsplus.commands;
 import gg.morphie.morphshopsplus.MorphShopsPlus;
 import gg.morphie.morphshopsplus.commands.playercommands.HelpCommand;
 import gg.morphie.morphshopsplus.commands.playercommands.MyPsCommand;
+import gg.morphie.morphshopsplus.commands.playercommands.RemoveCommand;
 import gg.morphie.morphshopsplus.commands.playercommands.SetCommand;
 import gg.morphie.morphshopsplus.util.Color;
 import org.bukkit.command.Command;
@@ -43,6 +44,15 @@ public class CommandsManager implements CommandExecutor {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
                     new MyPsCommand(plugin).runMyPs(player);
+                } else {
+                    sender.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + " &cThis command can only be run by a player!"));
+                }
+                return true;
+            } else if (args[0].equalsIgnoreCase("remove")) {
+                // Player Only
+                if (sender instanceof Player) {
+                    Player player = (Player) sender;
+                    new RemoveCommand(plugin).runRemove(player);
                 } else {
                     sender.sendMessage(Color.addColor(plugin.getMessage("ErrorPrefix") + " &cThis command can only be run by a player!"));
                 }

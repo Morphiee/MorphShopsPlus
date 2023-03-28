@@ -51,7 +51,8 @@ public class PlayerDataManager {
     public void removeShop(UUID uuid) {
         File file = getPlayerFile(uuid);
         FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
-        fc.set("PlayerData.location", null);;
+        fc.set("PlayerData.location", null);
+        fc.set("PlayerData.Shop", false);
         try
         {
             fc.save(file);

@@ -84,10 +84,14 @@ public class BuildManager implements Listener {
         cfg.addDefault("Commands.PsReload", "&8» &3/ps reload &8- &7Reloads all plugin files!");
         cfg.addDefault("Commands.Footer", "&7‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
 
-        this.messagesCFG.addDefault("SetShop.Message", "&7Your shop has been successfully created!");
-        this.messagesCFG.addDefault("SetShop.ConfirmMessage", "&7Type &a/ps set &7again to confirm!");
-        this.messagesCFG.addDefault("SetShop.ConfirmCanceledMessage", "&7Set shop confirmation timed out! Type &a/ps set &7to set your shop.");
-        this.messagesCFG.addDefault("SetShop.ConfirmPriceMessage", "&7Type &a/ps set &7again to confirm! This will cost&8: &aCOST");
+        cfg.addDefault("SetShop.Message", "&7Your shop has been successfully created!");
+        cfg.addDefault("SetShop.ConfirmMessage", "&7Type &a/ps set &7again to confirm!");
+        cfg.addDefault("SetShop.ConfirmCanceledMessage", "&7Set shop confirmation timed out! Type &a/ps set &7to set your shop.");
+        cfg.addDefault("SetShop.ConfirmPriceMessage", "&7Type &a/ps set &7again to confirm! This will cost&8: &aCOST");
+
+        cfg.addDefault("RemoveShop.Message", "&7Your shop has been successfully removed!");
+        cfg.addDefault("RemoveShop.ConfirmMessage", "&7Type &a/ps remove &7again to confirm!");
+        cfg.addDefault("RemoveShop.ConfirmCanceledMessage", "&7Remove shop confirmation timed out! Type &a/ps remove &7to remove your shop.");
 
         cfg.addDefault("Prefix", "&8[&a&l✔&8] &3&lMorphShops &8&l➙ ");
         cfg.addDefault("ErrorPrefix", "&8[&c&l✕&8] &3&lMorphShops &8&l➙ ");
@@ -102,6 +106,7 @@ public class BuildManager implements Listener {
         cfg.addDefault("NoArgs", "&7Invalid args. Use &a/ps &7for commands!");
         cfg.addDefault("NotAllowedWorld", "&7You cannot set your shop in this world!");
         cfg.addDefault("InvalidLocation", "&7This location is unsafe! Please make sure the area is safe for teleportation.");
+        cfg.addDefault("InvalidArgsMessage", "&7Invalid arguments. Use /ps for help.");
         cfg.addDefault("PlayerNameChange", "&7Player shop cannot be found! Name change?");
     }
 }
